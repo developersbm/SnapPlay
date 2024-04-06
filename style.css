@@ -8,11 +8,37 @@ body {
     background-color: white;
 }
 
+/* Navbar */
+
+nav {
+    background: yellow;
+    width: 100%;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.logo {
+    width: 100px;
+}
+.profile-pic {
+    width: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+/* Search */
+
 .search-container {
     background-color: transparent;
     width: 600px;
-    margin: 200px auto 0;
-    border-radius: 5px;
+    margin: 50px auto 0;
+    border: 5px solid yellow;
+    padding: 5px;
+    border-radius: 50px;
+
 }
 .row {
     display: flex;
@@ -50,3 +76,17 @@ button {
     max-height: 200px;
     overflow-y: scroll;
 }
+.btn-val {
+    border: 2px solid yellow;
+    padding: 1em 2.2em;
+    border-radius: 3em;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    margin-left: 200px;
+}
+
+.active {
+    background-color: yellow;
+    color: black;
+  }

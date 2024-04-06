@@ -1,6 +1,5 @@
 import { audios } from "./dataset.js";
 
-document.addEventListener("DOMContentLoaded", function() {
 
   // Extracting audioNames from the audios dataset
   const availableKeywords = audios.data.map(audio => audio.audioName);
@@ -40,4 +39,3 @@ document.addEventListener("DOMContentLoaded", function() {
     inputBox.value = li.innerHTML;
     resultbx.innerHTML = '';
   }
-});

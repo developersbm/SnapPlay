@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css" />
   <title>SnapPlay</title>
+  <link rel="icon" type="image/png" href="/img/snapPlay.png">
 </head>
 <body>
-  <div class="main">
+    <!-- Navbar -->
+    <nav>
+        <img src="img/snapPlay.png" class="logo">
+        <img src="img/profile.png" class="profile-pic">
+    </nav>
+    <!-- Search bar -->
     <div class="search-container">
       <div class="row">
         <input type="text" id="input-box" 
@@ -15,17 +21,14 @@
         <button>Search</button> <!-- Replace with Search button -->
       </div>
       <div class="result-bx"></div>
-        <ul>
-        </ul>
     </div>
-    <!-- Categories
+    <!-- Categories -->
     <div id="buttons"></div>
       <button class="btn-val" onclick="filterAudio('All')">All</button>
       <button class="btn-val" onclick="filterAudio('Popular')">Popular</button>
       <button class="btn-val" onclick="filterAudio('Funny')">Funny</button>
       <button class="btn-val" onclick="filterAudio('Animals')">Animals</button>
-  </div>
-  <div id="audios"></div> -->
+  <div id="audios"></div>
 </div>
 </body>
 <script type="module" src="scripts.js"></script>
