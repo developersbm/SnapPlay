@@ -1,39 +1,32 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>LA TV Shows | Home</title>
-    <meta name="description" content="A Catalog of Shows Set in Los Angeles">
-    <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="scripts.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <title>SnapPlay</title>
 </head>
-
 <body>
-    <header class="main-header">
-        <h1 class="title">LA TV Shows</h1>
-    </header>
-    <div id="card-container">
-        
+  <div class="main">
+    <div class="search-container">
+      <div class="row">
+        <input type="text" id="input-box" 
+        placeholder="Search audio..." autocomplete="off"/>
+        <button>Search</button> <!-- Replace with Search button -->
+      </div>
+      <div class="result-bx"></div>
+        <ul>
+        </ul>
     </div>
-    <div class="card" style="display: none;">
-        <div class="card-content">
-            <h2>TV Show Title</h2>
-            <img src="" alt="TV Show Poster">
-            <ul>
-                <li>Bullet Point 1</li>
-                <li>Bullet Point 2</li>
-                <li>Bullet Point 3</li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer">
-        <button onclick="quoteAlert();">
-            Get A Quote!
-        </button>
-        <button onclick="removeLastCard();">
-            Remove A Card!
-        </button>
-    </div>
+    <!-- Categories
+    <div id="buttons"></div>
+      <button class="btn-val" onclick="filterAudio('All')">All</button>
+      <button class="btn-val" onclick="filterAudio('Popular')">Popular</button>
+      <button class="btn-val" onclick="filterAudio('Funny')">Funny</button>
+      <button class="btn-val" onclick="filterAudio('Animals')">Animals</button>
+  </div>
+  <div id="audios"></div> -->
+</div>
 </body>
-
+<script type="module" src="scripts.js"></script>
 </html>
