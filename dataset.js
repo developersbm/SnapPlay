@@ -70,5 +70,10 @@ export let audios = {
       category: "Animals",
       image: "/img/picture-example.png",
     },
+    {
+      audioName: "Example4",
+      category: "Animals",
+      image: "/img/picture-example.png",
+    },
   ],
 };
