@@ -5,28 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css" />
   <title>SnapPlay</title>
+  <link rel="icon" type="image/png" href="/img/snapPlay.png">
 </head>
 <body>
-  <div class="main">
-    <div class="search-container">
+    <!-- Navbar -->
+    <nav>
+        <img src="img/snapPlay.png" class="logo">
+        <img src="img/profile.png" class="profile-pic">
+    </nav>
+    <!-- Search bar -->
+    <div class="search-container"> <!-- try not putting category-->
       <div class="row">
-        <input type="text" id="input-box" 
-        placeholder="Search audio..." autocomplete="off"/>
-        <button>Search</button> <!-- Replace with Search button -->
+        <input type="text" id="input-box" placeholder="Search audio..." autocomplete="off"/>
+        <button><img src="/img/search.png"></button> <!-- Replace with Search button -->
       </div>
       <div class="result-bx"></div>
-        <ul>
-        </ul>
     </div>
-    <!-- Categories
-    <div id="buttons"></div>
-      <button class="btn-val" onclick="filterAudio('All')">All</button>
-      <button class="btn-val" onclick="filterAudio('Popular')">Popular</button>
+    <!-- Categories -->
+    <div id="buttons" class="category-container">
+      <button class="btn-val" onclick="filterAudio('all')">All</button>
       <button class="btn-val" onclick="filterAudio('Funny')">Funny</button>
+      <button class="btn-val" onclick="filterAudio('Vehicles')">Vehicles</button>
       <button class="btn-val" onclick="filterAudio('Animals')">Animals</button>
-  </div>
-  <div id="audios"></div> -->
-</div>
+      <button class="btn-val" onclick="filterAudio('Music')">Music</button>
+    </div>    
+    <!-- Audio Cards -->
+    <div class="wrapper">
+      <div id="audios"></div>
+    </div>
+    <script type="module" src="scripts.js"></script>
+    <!-- Move this to script.js once finished -->
+    <script>
+      // Define the filterAudios function
+      function filterAudio(value) {
+        //Button class code
+        let buttons = document.querySelectorAll(".btn-val");
+        buttons.forEach((button) => {
+          //check if value equals innerText
+          if (value.toUpperCase() == button.innerText.toUpperCase()) {
+            button.classList.add("active");
+          } else {
+            button.classList.remove("active");
+          }
+        });
+    
+    
+        // Select all cards
+        let elements = document.querySelectorAll(".card");
+        // Loop through all cards
+        elements.forEach((element) => {
+          // Display all cards on 'all' button click
+          if (value === "all") {
+            element.classList.remove("hide");
+          } else {
+            // Check if element contains category class
+            if (element.classList.contains(value)) {
+              // Display element based on category
+              element.classList.remove("hide");
+            } else {
+              // Hide other elements
+              element.classList.add("hide");
+            }
+          }
+        });
+      }
+    </script>
 </body>
-<script type="module" src="scripts.js"></script>
 </html>
