@@ -20,7 +20,7 @@ nav {
     position: relative;
 }
 .logo {
-    width: 100px;
+    width: 350px;
     cursor: pointer;
 }
 .profile-pic {
@@ -80,7 +80,9 @@ button {
     position: absolute;
     width: 590px;
 }
-
+#search {
+    cursor: pointer;
+}
 /* Categories */
 
 .category-container {
@@ -161,3 +163,14 @@ button {
     }
 }
 
+/* Liked button */
+
+.btn-liked {
+    border: 2px solid yellow;
+    padding: 1em 2.2em;
+    border-radius: 3em;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    margin: 17px;
+}

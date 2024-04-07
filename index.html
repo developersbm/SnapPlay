@@ -5,19 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css" />
   <title>SnapPlay</title>
-  <link rel="icon" type="image/png" href="/img/snapPlay.png">
+  <link rel="icon" type="image/png" href="/img/snap-play.png">
 </head>
+<!-- 
+  Notes: 
+  - Put like category in the left of the search bar.
+  - Fix the design of the cards so they display the likes on top.
+  - Add the audios
+-->
 <body>
     <!-- Navbar -->
     <nav>
-        <img src="img/snapPlay.png" class="logo">
+        <img src="img/title.png" class="logo">
         <img src="img/profile.png" class="profile-pic">
     </nav>
+    <!-- Liked list category -->
+    <div class="likes">
+      <button id="like-btn" >❤️</button>
+    </div>
     <!-- Search bar -->
-    <div class="search-container"> <!-- try not putting category-->
+    <div class="search-container">
       <div class="row">
         <input type="text" id="input-box" placeholder="Search audio..." autocomplete="off"/>
-        <button><img src="/img/search.png"></button> <!-- Replace with Search button -->
+        <button><img id="search" src="/img/search.png"></button>
       </div>
       <div class="result-bx"></div>
     </div>
@@ -27,7 +37,7 @@
       <button class="btn-val" onclick="filterAudio('Funny')">Funny</button>
       <button class="btn-val" onclick="filterAudio('Vehicles')">Vehicles</button>
       <button class="btn-val" onclick="filterAudio('Animals')">Animals</button>
-      <button class="btn-val" onclick="filterAudio('Music')">Music</button>
+      <button class="btn-val" onclick="filterAudio('Likes')">Likes</button>
     </div>    
     <!-- Audio Cards -->
     <div class="wrapper">
@@ -36,12 +46,12 @@
     <script type="module" src="scripts.js"></script>
     <!-- Move this to script.js once finished -->
     <script>
-      // Define the filterAudios function
+      // FilterAudios function
       function filterAudio(value) {
-        //Button class code
+        // Button class code
         let buttons = document.querySelectorAll(".btn-val");
         buttons.forEach((button) => {
-          //check if value equals innerText
+          // Check if value equals innerText
           if (value.toUpperCase() == button.innerText.toUpperCase()) {
             button.classList.add("active");
           } else {
