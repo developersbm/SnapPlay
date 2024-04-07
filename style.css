@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-size: Arial;
+    font-family: Arial, Helvetica, sans-serif;
 }
 body {
     background-color: white;
@@ -39,7 +39,6 @@ nav {
     border: 5px solid yellow;
     padding: 5px;
     position: relative;
-
 }
 .row {
     display: flex;
@@ -83,6 +82,22 @@ button {
 #search {
     cursor: pointer;
 }
+
+/* Liked button */
+
+.like-category {
+    background-color: transparent;
+    width: 50px;
+    position: relative;
+    cursor: pointer;
+}
+.heart-icon {
+    width: 30px;
+}
+.liked {
+    display: block !important;
+  }  
+
 /* Categories */
 
 .category-container {
@@ -98,6 +113,7 @@ button {
     color: black;
     cursor: pointer;
     margin: 17px;
+    font-size: 0.85em;
 }
 .active {
     background-color: yellow;
@@ -122,6 +138,7 @@ button {
     padding: 2em 0;
 }
 .card {
+    position: relative;
     background-color: white;
     max-width: 18em;
     margin-top: 1em;
@@ -141,12 +158,43 @@ button {
     padding-top: 1em;
     color: #110f29;
 }
-.container h5 {
+.audio-name {
+    font-size: 1em;
     font-weight: 600;
+    margin-left: 30px;
+}
+.audio-category {
+    font-size: 1em;
+    font-weight: 400;
+    margin-left: 30px;
 }
 .hide {
     display: none;
 }
+.card audio {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.like-btn {
+    position: absolute;
+    top: 10px; 
+    right: 10px; 
+    width: 30px; 
+    height: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+/* Audio */
+
+audio::-webkit-media-controls-panel {
+    background-color: white;
+}
+
+/* Responsive */
+
 @media screen and (max-width: 720px) {
     .card img {
         max-width: 100%;
@@ -161,16 +209,7 @@ button {
         grid-template-columns: auto auto;
         grid-column-gap: 1em;
     }
-}
-
-/* Liked button */
-
-.btn-liked {
-    border: 2px solid yellow;
-    padding: 1em 2.2em;
-    border-radius: 3em;
-    background-color: transparent;
-    color: black;
-    cursor: pointer;
-    margin: 17px;
+    .card audio {
+        margin-top: 5px;
+      }
 }
