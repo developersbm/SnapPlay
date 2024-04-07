@@ -26,10 +26,18 @@ inputBox.onkeyup = function() {
 // Display the result
 function display(result) {
   const content = result.map((audioName) => {
-    return `<li onclick="fillInputBox(this)">${audioName}</li>`; 
+    return `<li>${audioName}</li>`;  // Remove onclick attribute
   });
 
   resultbx.innerHTML = "<ul>" + content.join('') + "</ul>";
+
+  // Add event listener to each <li> element after they are appended to the DOM
+  const resultListItems = document.querySelectorAll('.result-bx ul li');
+  resultListItems.forEach(item => {
+    item.addEventListener('click', function() {
+      fillInputBox(this);
+    });
+  });
 }
 
 // Function to fill input box with clicked item's text
@@ -38,12 +46,11 @@ function fillInputBox(li) {
   inputBox.value = selectedValue; // Populate input box with clicked item's text
   resultbx.innerHTML = ''; // Clear result box
 
+  // Trigger search after autofilling
   inputBox.dispatchEvent(new Event('keyup'));
 }
 
-
 // Search the Audio
-//Search button click
 document.getElementById("search").addEventListener("click", () => {
   // Variables
   let searchInput = document.getElementById("input-box").value;
@@ -57,26 +64,34 @@ document.getElementById("search").addEventListener("click", () => {
       // Display the matching card
       cards[index].classList.remove("hide");
     } else {
-      // Hide the others & hide the resultbx
+      // Hide the others
       cards[index].classList.add("hide");
-      resultbx.classList.add("hide");
     }
   });
 });
+
+// Array of liked
+let likedAudios = [];
 
 // Like an audio
 function toggleLike(index) {
   const audio = audios.data[index];
   const likeBtn = document.getElementById(`like-btn-${index}`);
+
+  // Check if audio is already liked
+  const isLiked = likedAudios.some(item => item === audio);
   
-  if (audio.myLikes === "NA") {
+  if (!isLiked) {
     // Add to liked audios
-    audio.myLikes = "liked";
-    likeBtn.style.color = "red"; // Change button color to red to indicate liked
+    likedAudios.push(audio);
+    likeBtn.src = "img/red-heart.png";
+    document.querySelector(`.card:nth-child(${index + 1})`).classList.add("liked");
   } else {
     // Remove from liked audios
-    audio.myLikes = "NA";
-    likeBtn.style.color = "black"; // Change button color to black to indicate not liked
+    const audioIndex = likedAudios.findIndex(item => item === audio);
+    likedAudios.splice(audioIndex, 1);
+    likeBtn.src = "img/empty-heart.png";
+    document.querySelector(`.card:nth-child(${index + 1})`).classList.remove("liked");
   }
 
   likeBtn.style.cursor = "pointer";
@@ -89,9 +104,9 @@ function updateLikedUI() {
   const likesContainer = document.querySelector('.likes');
   likesContainer.innerHTML = ''; // Clear previous content
   
-  const likedAudios = audios.data.filter(audio => audio.myLikes === "liked");
+  const liked = likedAudios.length;
   
-  if (likedAudios.length > 0) {
+  if (liked > 0) {
     likedAudios.forEach((audio, index) => {
       const likedItem = document.createElement('div');
       likedItem.innerText = audio.audioName;
@@ -111,6 +126,7 @@ for (let i = 0; i < audios.data.length; i++) {
   // Card section
   let card = document.createElement("div");
   card.classList.add("card", audio.category, "hide");
+  card.classList.add("card", audio.myLikes, "hide");
 
   // ImageContainer
   let imgContainer = document.createElement("div");
@@ -127,20 +143,40 @@ for (let i = 0; i < audios.data.length; i++) {
   container.classList.add("container");
 
   // Audio name
-  let name = document.createElement("h5");
+  let name = document.createElement("h3");
   name.classList.add("audio-name");
-  name.innerText = audio.audioName.toUpperCase();
+  name.innerText = audio.audioName;
   container.appendChild(name);
 
+  // Audio category
+  let category = document.createElement("h4");
+  category.classList.add("audio-category");
+  category.innerText = audio.category;
+  container.appendChild(category);
+
   // Like button
-  let likeBtn = document.createElement('button');
-  likeBtn.innerHTML = "O";
+  let likeBtn = document.createElement('img');
+  likeBtn.classList.add('like-btn');
   likeBtn.setAttribute('id', `like-btn-${i}`);
+  likeBtn.setAttribute('src', 'img/empty-heart.png');
+  likeBtn.style.width = '30px';
+  likeBtn.style.height = '30px';
   likeBtn.addEventListener('click', () => toggleLike(i));
   container.appendChild(likeBtn);
 
+  // Audio
+  let audioElement = document.createElement("audio");
+  audioElement.setAttribute("controls", "");
+  audioElement.classList.add("audio-control");
+  let sourceElement = document.createElement("source");
+  sourceElement.setAttribute("src", audio.audioToPlay);
+  sourceElement.setAttribute("type", "audio/mpeg");
+  audioElement.appendChild(sourceElement);
+  container.appendChild(audioElement);
+
   card.appendChild(container);
   document.getElementById("audios").appendChild(card);
+
 }
 
 // Initially display all audios
