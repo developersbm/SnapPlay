@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="style.css" />
   <title>SnapPlay</title>
   <link rel="icon" type="image/png" href="img/snap-play.png">
+  <script type="module" src="scripts.js"></script>
 </head>
 <body>
     <!-- Navbar -->
@@ -13,15 +14,12 @@
         <img src="img/title.png" class="logo">
         <img src="img/profile.png" class="profile-pic">
     </nav>
-    <button class="likes">
-      <img id="like-icon" src="img/empty-heart.png" class="heart-icon">
-    </button>
     <!-- Search bar -->
     <div class="search-container">
       <div class="row">
         <!-- Liked list category -->
-        <button class="like-category" onclick="displayLikes()">
-          <img id="like-icon" src="img/empty-heart.png" class="heart-icon">
+        <button id="like-btn" class="like-category">
+          <img id="like-icon" class="heart-icon" src="img/red-heart.png">
         </button>
         <!-- Search input -->
         <input type="text" id="input-box" placeholder="Search audio..." autocomplete="off"/>
@@ -41,56 +39,45 @@
     <div class="wrapper">
       <div id="audios"></div>
     </div>
-    <script type="module" src="scripts.js"></script>
-    <!-- Move this to script.js once finished (Need to finish displayLikes())-->
-    <script>
-      // Function to display liked audios
-      function displayLikes() {
-        const cards = document.querySelectorAll('.card');
-        cards.classList.add('hide');
-        cards.forEach((card, index) => {
-          const audio = audios.data[index];
-          const isLiked = likedAudios.some(item => item === audio);
-          if (isLiked) {
-            card.classList.remove('hide');
-          } else {
-            card.classList.add('hide');
-          }
-        });
+</body>
+<script>
+  // Function to filter audio based on category and liked status
+  function filterAudio(value) {
+    // Button class code
+    let buttons = document.querySelectorAll(".btn-val");
+    buttons.forEach((button) => {
+      // Check if value equals innerText
+      if (value.toUpperCase() == button.innerText.toUpperCase()) {
+        button.classList.add("active");
+      } else {
+        button.classList.remove("active");
       }
+    });
 
-    // Function to filter audio based on category and liked status
-    function filterAudio(value) {
-      // Button class code
-      let buttons = document.querySelectorAll(".btn-val");
-      buttons.forEach((button) => {
-        // Check if value equals innerText
-        if (value.toUpperCase() == button.innerText.toUpperCase()) {
-          button.classList.add("active");
-        } else {
-          button.classList.remove("active");
-        }
-      });
+    // Select all cards
+    let elements = document.querySelectorAll(".card");
 
-      // Select all cards
-      let elements = document.querySelectorAll(".card");
-      // Loop through all cards
-      elements.forEach((element) => {
-        // Display all cards on 'all' button click
-        if (value === "all") {
+    // Hide all cards initially
+    elements.forEach((element) => element.classList.add("hide"));
+
+    // Display cards based on category or liked status
+    elements.forEach((element) => {
+      if (value === "all") {
+        element.classList.remove("hide");
+      } else if (value === "Likes") {
+        displayLikes(); // Show liked audios
+      } else {
+        if (
+          (element.classList.contains(value) ||
+            value === "Likes") &&
+          (value !== "Likes" || element.classList.contains("liked"))
+        ) {
           element.classList.remove("hide");
         } else {
-          // Check if element contains category class and liked class
-          if ((element.classList.contains(value) || value === "Likes") && (value !== "Likes" || element.classList.contains("liked"))) {
-            // Display element based on category
-            element.classList.remove("hide");
-          } else {
-            // Hide other elements
-            element.classList.add("hide");
-          }
+          element.classList.add("hide");
         }
-      });
-    }
-    </script>
-</body>
+      }
+    });
+  }
+</script>
 </html>
