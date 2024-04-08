@@ -277,10 +277,10 @@ audio::-webkit-media-controls-panel {
 .pop-up-content {
     background-color: white;
     margin: 15% auto;
-    padding: 20px;
-    padding-bottom: 30px;
+    padding: 10px;
+    padding-bottom: 20px;
     border: 1px solid grey;
-    width: 80%;
+    width: 50%;
     border-radius: 10px;
 }
 

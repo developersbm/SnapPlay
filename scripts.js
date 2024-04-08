@@ -1,37 +1,5 @@
 import { audios } from "./dataset.js";
 
-// Filter
-function filterAudio(event) {
-  let value = event.target.dataset.value; // Get the value from the button's data-value attribute
-
-  // Button class code
-  let buttons = document.querySelectorAll(".btn-val");
-  buttons.forEach((button) => {
-    // Check if value equals data-value attribute
-    if (value.toUpperCase() == button.dataset.value.toUpperCase()) {
-      button.classList.add("active");
-    } else {
-      button.classList.remove("active");
-    }
-  });
-
-  let elements = document.querySelectorAll(".card");
-
-  // Only hide cards if the value is not "all"
-  if (value !== "all") {
-    elements.forEach((element) => element.classList.add("hide"));
-  }
-
-  elements.forEach((element) => {
-    if (value === "all" ||  
-      (element.classList.contains(value) && !element.classList.contains("liked")) ||  
-      (value === "Likes" && element.classList.contains("liked")) 
-    ) {
-      element.classList.remove("hide");
-    }
-  });
-}
-
 // Add event listeners to buttons
 document.querySelectorAll(".btn-val").forEach(button => {
   button.addEventListener("click", filterAudio);
@@ -45,9 +13,8 @@ document.getElementById('sort-select').addEventListener('change', function() {
     sortByNameAsc();
   } else if (value === 'name-desc') {
     sortByNameDesc();
-  } else if (value === 'rating') {
-    sortByRating();
   }
+  filterAudio({ target: { dataset: { value: "all" } } });
 });
 
 // Update the cards when sorted
@@ -140,6 +107,38 @@ function sortByNameDesc() {
   updateCards();
 }
 
+// Filter
+function filterAudio(event) {
+  let value = event.target.dataset.value;
+
+  // Button class code
+  let buttons = document.querySelectorAll(".btn-val");
+  buttons.forEach((button) => {
+    // Check if value equals data-value attribute
+    if (value.toUpperCase() == button.dataset.value.toUpperCase()) {
+      button.classList.add("active");
+    } else {
+      button.classList.remove("active");
+    }
+  });
+
+  let elements = document.querySelectorAll(".card");
+
+  // Only hide cards if the value is not "all"
+  if (value !== "all") {
+    elements.forEach((element) => element.classList.add("hide"));
+  }
+
+  elements.forEach((element) => {
+    if (value === "all" ||  
+      (element.classList.contains(value) && !element.classList.contains("liked")) ||  
+      (value === "Likes" && element.classList.contains("liked")) 
+    ) {
+      element.classList.remove("hide");
+    }
+  });
+}
+
 // Function to fill input box with clicked item's text
 function fillInputBox(li) {
   const selectedValue = li.innerHTML;
@@ -195,7 +194,7 @@ document.getElementById("search").addEventListener("click", () => {
 // Display the result
 function display(result) {
   const content = result.map((audioName) => {
-    return `<li onclick="fillInputBox(this)">${audioName}</li>`; 
+    return `<li onclick="fillInputBox(this)">${audioName}</li>`;
   });
 
   resultbx.innerHTML = "<ul>" + content.join('') + "</ul>";
@@ -207,6 +206,11 @@ function display(result) {
       fillInputBox(this);
     });
   });
+
+  // Create and append the newly added card to the result box
+  const newlyAddedAudio = audios.data[audios.data.length - 1];
+  const newCard = `<li onclick="fillInputBox(this)">${newlyAddedAudio.audioName}</li>`;
+  resultbx.querySelector('ul').insertAdjacentHTML('beforeend', newCard);
 }
 
 // Array of liked
@@ -226,20 +230,27 @@ function updateLikedUI() {
     });
   }
 }
+function displayErrorMessage(message, duration) {
+  const errorHandler = document.getElementById("error-handler");
+  errorHandler.innerHTML = message;
+  errorHandler.classList.add("show");
 
-// Likes empty handler
-const errorHandler = document.getElementById("error-handler");
-
+  // Remove errorHandler
+  setTimeout(() => {
+    errorHandler.innerHTML = "";
+    errorHandler.classList.remove("show");
+  }, duration);
+}
 // Function to display liked audios
 document.getElementById("like-btn").addEventListener("click", () => {
+  const errorHandler = document.getElementById("error-handler");
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => card.classList.add('hide')); // Hide all cards initially
   errorHandler.innerHTML = "";
 
   // Check if likedAudios array is empty
   if (likedAudios.length === 0) {
-    errorHandler.innerHTML = "There are no elements inside of your liked list!";
-    errorHandler.classList.add("show");
+    displayErrorMessage("There are no elements inside of your liked list!", 2000);
   }
   else {
     likedAudios.forEach(audio => {
@@ -337,6 +348,7 @@ document.getElementById("add-form").addEventListener("submit", function(event) {
 
   // Update UI to reflect the changes
   updateCards();
+  createCards();
 
   // Check for errors
   console.log(newAudio);
@@ -346,6 +358,8 @@ document.getElementById("add-form").addEventListener("submit", function(event) {
 
 // Populate audio cards
 function createCards() {
+  const audiosContainer = document.getElementById("audios");
+  audiosContainer.innerHTML = ""; // Clear existing cards
 
   for (let i = 0; i < audios.data.length; i++) {
     const audio = audios.data[i];
@@ -387,7 +401,6 @@ function createCards() {
     likeBtn.classList.add('like-btn');
     likeBtn.setAttribute('id', `like-btn-${i}`);
     likeBtn.setAttribute('src', 'img/empty-heart.png');
-    likeBtn.addEventListener('click', () => toggleLike(i));
     container.appendChild(likeBtn);
 
     // Ratings
@@ -407,10 +420,13 @@ function createCards() {
     container.appendChild(audioElement);
 
     card.appendChild(container);
-    document.getElementById("audios").appendChild(card);
+    audiosContainer.appendChild(card);
 
+    // Event listener for like button
+    likeBtn.addEventListener('click', () => toggleLike(i));
   }
 }
+
 
 // Initially display all audios
 window.onload = () => {
