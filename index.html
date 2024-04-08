@@ -7,13 +7,6 @@
   <script type="module" src="scripts.js"></script>
 </head>
 <body>
-    <!-- 
-      Notes: 
-      - Sort data by data, A-Z
-      - Add your own audio
-      - Fix errorHandler & put filterAudio in scripts.js
-    -->
-
     <!-- Navbar -->
     <nav>
         <img src="img/title.png" class="logo">
@@ -42,12 +35,12 @@
     </div>
     <!-- Categories -->
     <div id="buttons" class="category-container">
-      <button class="btn-val" onclick="filterAudio('all')">All</button>
-      <button class="btn-val" onclick="filterAudio('Funny')">Funny</button>
-      <button class="btn-val" onclick="filterAudio('Vehicles')">Vehicles</button>
-      <button class="btn-val" onclick="filterAudio('Animals')">Animals</button>
-      <button class="btn-val" onclick="filterAudio('Music')">Music</button>
-    </div>    
+      <button class="btn-val" data-value="all">All</button>
+      <button class="btn-val" data-value="Funny">Funny</button>
+      <button class="btn-val" data-value="Vehicles">Vehicles</button>
+      <button class="btn-val" data-value="Animals">Animals</button>
+      <button class="btn-val" data-value="Music">Music</button>
+    </div>     
     <div id="error-handler"></div>
     <!-- Audio Cards -->
     <div class="wrapper">
@@ -62,59 +55,23 @@
       <div class="pop-up-content">
           <span class="close">&times;</span>
           <form id="add-form">
-              <label for="audio-name">Audio Name</label>
-              <input type="text" id="audio-name" name="audio-name" required><br>
-              <label for="category">Category</label>
-              <input type="text" id="emoji" name="emoji" required><br>
-              <label for="audio-url">Emoji</label>
-              <input type="text" id="category" name="category" required><br>
-              <label for="emoji">Audio URL</label>
-              <input type="text" id="audio-url" name="audio-url" required><br>
-              <button type="submit">Add Card</button>
-          </form>
+            <label for="audio-name">Name</label>
+            <input type="text" id="audio-name" name="audio-name" required><br>
+            <label for="emoji">Emoji</label>
+            <input type="text" id="emoji" name="emoji" required><br>
+            <label for="category">Category</label>
+            <input type="text" id="category" name="category" required><br>
+            <label for="rating-cat">Rating</label>
+            <input type="text" id="rating-cat" name="rating-cat" required><br>
+            <label for="audio-url">Audio URL</label>
+            <input type="text" id="audio-url" name="audio-url" required><br>
+            <button type="submit">Add Card</button>
+        </form>        
       </div>
   </div>
 </div>
 </body>
 <script>
-  // Function to filter audio based on category and liked status
-  function filterAudio(value) {
-    // errorHandler.classList.remove("show");
-    // Button class code
-    let buttons = document.querySelectorAll(".btn-val");
-    buttons.forEach((button) => {
-      // Check if value equals innerText
-      if (value.toUpperCase() == button.innerText.toUpperCase()) {
-        button.classList.add("active");
-      } else {
-        button.classList.remove("active");
-      }
-    });
 
-    // Select all cards
-    let elements = document.querySelectorAll(".card");
-
-    // Hide all cards initially
-    elements.forEach((element) => element.classList.add("hide"));
-
-    // Display cards based on category or liked status
-    elements.forEach((element) => {
-      if (value === "all") {
-        element.classList.remove("hide");
-      } else if (value === "Likes") {
-        displayLikes(); // Show liked audios
-      } else {
-        if (
-          (element.classList.contains(value) ||
-            value === "Likes") &&
-          (value !== "Likes" || element.classList.contains("liked"))
-        ) {
-          element.classList.remove("hide");
-        } else {
-          element.classList.add("hide");
-        }
-      }
-    });
-  }
 </script>
 </html>
