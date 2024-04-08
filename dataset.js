@@ -366,7 +366,3 @@ export let audios = {
     },
   ],
 };
-
-audios.data.sort(() => Math.random() - 0.5);
-
-console.log(audios.data.length);

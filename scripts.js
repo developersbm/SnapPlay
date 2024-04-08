@@ -124,6 +124,9 @@ document.getElementById("like-btn").addEventListener("click", () => {
 
 // Like an audio
 function toggleLike(index) {
+  const audioContainer = document.getElementById("audios");
+  audioContainer.innerHTML - '';
+
   const audio = audios.data[index];
   const likeBtn = document.getElementById(`like-btn-${index}`);
 
@@ -215,6 +218,7 @@ function createCards() {
     // Emoji tag
     let emoji = document.createElement("span");
     emoji.innerText = audio.emoji;
+    emoji.classList.add("emoji");
     imgContainer.appendChild(emoji);
     card.appendChild(imgContainer);
 
@@ -264,8 +268,113 @@ function createCards() {
   }
 }
 
+// Sorting
+document.getElementById('sort-select').addEventListener('change', function() {
+  let value = this.value;
+  if (value === 'name-random') {
+    sortByRandom();
+  } else if (value === 'name-asc') {
+    sortByNameAsc();
+  } else if (value === 'name-desc') {
+    sortByNameDesc();
+  } else if (value === 'rating') {
+    sortByRating();
+  }
+});
+
+// Update the cards when sorted
+function updateCards() {
+  const cardElements = document.querySelectorAll(".card");
+
+  cardElements.forEach((cardElement, index) => {
+    const audio = audios.data[index];
+    if (audio) {
+      // Update emoji
+      const emojiSpan = cardElement.querySelector('.emoji');
+      if (emojiSpan) {
+        emojiSpan.innerText = audio.emoji;
+      }
+
+      // Update audio name
+      const name = cardElement.querySelector('.audio-name');
+      if (name) {
+        name.innerText = audio.audioName;
+      }
+
+      // Update audio category
+      const category = cardElement.querySelector('.audio-category');
+      if (category) {
+        category.innerText = audio.category;
+      }
+
+      // Update rating
+      const rating = cardElement.querySelector('.audio-rating');
+      if (rating) {
+        rating.innerText = audio.rating;
+      }
+
+      // Update audio source
+      const audioElement = cardElement.querySelector('.audio-control');
+      if (audioElement) {
+        audioElement.setAttribute('src', audio.audioToPlay);
+      }
+
+      // Update like button
+      const likeBtn = cardElement.querySelector('.like-btn');
+      if (likeBtn) {
+        likeBtn.src = likedAudios.some(item => item === audio) ? 'img/red-heart.png' : 'img/empty-heart.png';
+        likeBtn.addEventListener('click', () => toggleLike(index));
+      }
+
+      // Update card class based on liked status
+      if (likedAudios.some(item => item === audio)) {
+        cardElement.classList.add('liked');
+      } else {
+        cardElement.classList.remove('liked');
+      }
+    }
+  });
+}
+
+
+
+
+// Display cards in random order
+function sortByRandom() {
+  audios.data.sort(() => Math.random() - 0.5);
+  updateCards();
+}
+
+// Display cards in ascending order
+function sortByNameAsc() {
+  audios.data.sort(function(first, second) {
+    if (first.audioName < second.audioName) {
+      return -1;
+    } else if (first.audioName > second.audioName) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  updateCards();
+}
+
+// Display cards in descending order
+function sortByNameDesc() {
+  audios.data.sort(function(first, second) {
+    if (first.audioName > second.audioName) {
+      return -1;
+    } else if (first.audioName < second.audioName) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  updateCards();
+}
 // Initially display all audios
 window.onload = () => {
+  sortByRandom();
   createCards();
   filterAudio("all");
 };
