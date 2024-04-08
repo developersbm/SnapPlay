@@ -92,10 +92,22 @@ button {
 }
 .heart-icon {
     width: 30px;
+    transition: transform 0.5s;
+}
+.heart-icon:hover {
+    transform: scale(1.2);
 }
 .liked {
     display: block !important;
-  }  
+}
+#error-handler {
+    font-size: 30px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 30px;
+}
 
 /* Categories */
 
@@ -113,6 +125,10 @@ button {
     cursor: pointer;
     margin: 17px;
     font-size: 0.85em;
+    transition: transform 0.5s;
+}
+.btn-val:hover {
+    transform: scale(1.2);
 }
 .active {
     background-color: yellow;
@@ -139,7 +155,13 @@ button {
     padding: 1em;
     border-radius: 5px;
     box-shadow: 1em 2em 2.5em rgba(1, 2, 68, 0.08);
+    transition: transform 0.3s;
 }
+
+.card:hover {
+    transform: scale(1.05);
+}
+
 .emoji-container {
     text-align: center;
 }
@@ -161,6 +183,9 @@ button {
 .audio-category {
     font-size: 1em;
     font-weight: 400;
+    margin-left: 30px;
+}
+.audio-rating {
     margin-left: 30px;
 }
 .hide {
@@ -186,6 +211,89 @@ button {
 
 audio::-webkit-media-controls-panel {
     background-color: white;
+}
+
+/* Add button */
+
+.add-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.add-btn button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: yellow;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.add-btn button:hover {
+    background-color: #ffeb3b;
+}
+
+/* PopUp */
+.pop-up {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.pop-up-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    padding-bottom: 30px;
+    border: 1px solid grey;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pop-up-content input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid grey;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.pop-up-content button[type="submit"] {
+    background-color: yellow;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pop-up-content button[type="submit"]:hover {
+    background-color: yellow;
 }
 
 /* Responsive */

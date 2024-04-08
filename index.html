@@ -9,6 +9,13 @@
   <script type="module" src="scripts.js"></script>
 </head>
 <body>
+    <!-- 
+      Notes: 
+      - Sort data by data, A-Z
+      - Add your own audio
+      - Fix errorHandler & put filterAudio in scripts.js
+    -->
+
     <!-- Navbar -->
     <nav>
         <img src="img/title.png" class="logo">
@@ -35,14 +42,38 @@
       <button class="btn-val" onclick="filterAudio('Animals')">Animals</button>
       <button class="btn-val" onclick="filterAudio('Music')">Music</button>
     </div>    
+    <div id="error-handler"></div>
     <!-- Audio Cards -->
     <div class="wrapper">
       <div id="audios"></div>
     </div>
+    <!-- Add button -->
+    <div class="add-btn">
+      <button id="add-button">+</button>
+    </div>
+    <!-- Pop Up -->
+    <div id="pop-up" class="pop-up">
+      <div class="pop-up-content">
+          <span class="close">&times;</span>
+          <form id="add-form">
+              <label for="audio-name">Audio Name</label>
+              <input type="text" id="audio-name" name="audio-name" required><br>
+              <label for="category">Category</label>
+              <input type="text" id="emoji" name="emoji" required><br>
+              <label for="audio-url">Emoji</label>
+              <input type="text" id="category" name="category" required><br>
+              <label for="emoji">Audio URL</label>
+              <input type="text" id="audio-url" name="audio-url" required><br>
+              <button type="submit">Add Card</button>
+          </form>
+      </div>
+  </div>
+</div>
 </body>
 <script>
   // Function to filter audio based on category and liked status
   function filterAudio(value) {
+    // errorHandler.classList.remove("show");
     // Button class code
     let buttons = document.querySelectorAll(".btn-val");
     buttons.forEach((button) => {
