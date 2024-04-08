@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css" />
   <title>SnapPlay</title>
   <link rel="icon" type="image/png" href="img/snap-play.png">
@@ -21,6 +19,14 @@
         <img src="img/title.png" class="logo">
         <img src="img/profile.png" class="profile-pic">
     </nav>
+    <div class="sorting-options">
+      <select id="sort-select">
+          <option disabled selected>Sort catalog</option>
+          <option value="name-random">Random</option>
+          <option value="name-asc">A-Z</option>
+          <option value="name-desc">Z-A</option>
+      </select>
+    </div>
     <!-- Search bar -->
     <div class="search-container">
       <div class="row">

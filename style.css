@@ -30,6 +30,26 @@ nav {
     margin-left: 30px;
 }
 
+/* Sorting Options */
+.sorting-options {
+    display: flex;
+    justify-content: center;
+}
+
+#sort-select {
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+    text-align: center;
+    border: 2px solid yellow;
+    cursor: pointer;
+}
+
+#sort-select option {
+    font-size: 14px; 
+    padding: 5px;
+    text-align: center; 
+}
 /* Search */
 
 .search-container {
@@ -81,6 +101,10 @@ button {
 }
 #search {
     cursor: pointer;
+    transition: transform 0.5s;
+}
+#search:hover {
+    transform: scale(1.1);
 }
 
 /* Liked button */
@@ -143,7 +167,7 @@ button {
 }
 #audios {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-column-gap: 1.5em;
     padding: 2em 0;
 }
@@ -222,12 +246,12 @@ audio::-webkit-media-controls-panel {
 }
 
 .add-btn button {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background-color: yellow;
     color: black;
-    font-size: 24px;
+    font-size: 34px;
     font-weight: bold;
     border: 1px solid black;
     cursor: pointer;
@@ -298,26 +322,40 @@ audio::-webkit-media-controls-panel {
 
 /* Responsive */
 
-@media screen and (max-width: 720px) {
-    .card img {
-        max-width: 100%;
-        object-fit: contain;
-        height: 10em;
-    }
-    .card {
-        max-width: 10em;
-        margin-top: 1em;
-    }
-    #audios {
-        grid-template-columns: auto auto;
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .card audio {
-        margin-top: 5px;
-      }
-}
 @media (max-width: 768px) {
-    #buttons {
-      flex-wrap: wrap;
+    #audios {    
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-column-gap: 1.5em;
+        padding: 2em 0;    
+    }
+    .wrapper {
+        width: 75%;
+    }
+}
+
+@media (max-width: 720px) {
+    .audio-rating {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .wrapper {
+        width: 50%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 375px) {
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 320px) {
+    .audio-rating {
+        font-size: 13px;
     }
 }
