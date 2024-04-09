@@ -5,6 +5,7 @@
   <title>SnapPlay</title>
   <link rel="icon" type="image/png" href="img/snap-play.png">
   <script type="module" src="scripts.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navbar -->
@@ -12,16 +13,8 @@
         <img src="img/title.png" class="logo">
         <img src="img/profile.png" class="profile-pic">
     </nav>
-    <div class="sorting-options">
-      <select id="sort-select">
-          <option disabled selected>Sort catalog</option>
-          <option value="name-random">Random</option>
-          <option value="name-asc">A-Z</option>
-          <option value="name-desc">Z-A</option>
-      </select>
-    </div>
     <div class="title">
-      <!-- <img src="img/profile.png" class="profile-pic"> -->
+      <h1>A Collection Of The Best Audios</h1>
     </div>
     <!-- Search bar -->
     <div class="search-container">
@@ -36,14 +29,22 @@
       </div>
         <div class="result-bx"></div>
     </div>
+    <div class="sorting-options">
+      <select id="sort-select">
+          <option disabled selected>Sort Catalog</option>
+          <option value="name-random">Random</option>
+          <option value="name-asc">A-Z</option>
+          <option value="name-desc">Z-A</option>
+      </select>
+    </div>  
     <!-- Categories -->
     <div id="buttons" class="category-container">
-      <button class="btn-val" data-value="all">All</button>
-      <button class="btn-val" data-value="Funny">Funny</button>
-      <button class="btn-val" data-value="Vehicles">Vehicles</button>
-      <button class="btn-val" data-value="Animals">Animals</button>
-      <button class="btn-val" data-value="Music">Music</button>
-    </div>     
+      <button class="btn-val" id="btn-val" data-value="all">All</button>
+      <button class="btn-val" id="btn-val" data-value="Funny">Funny</button>
+      <button class="btn-val" id="btn-val" data-value="Vehicles">Vehicles</button>
+      <button class="btn-val" id="btn-val" data-value="Animals">Animals</button>
+      <button class="btn-val" id="btn-val" data-value="Music">Music</button>
+    </div>   
     <div id="error-handler"></div>
     <!-- Audio Cards -->
     <div class="wrapper">

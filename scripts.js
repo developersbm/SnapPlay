@@ -1,9 +1,18 @@
 import { audios } from "./dataset.js";
 
+// Error handler
+
+function displayErrorMessage(message) {
+  alert(message);
+}
+
 // Add event listeners to buttons
 document.querySelectorAll(".btn-val").forEach(button => {
-  button.addEventListener("click", filterAudio);
+  button.addEventListener("click", function(event) {
+    filterAudio(event);
+  });
 });
+
 // Sorting
 document.getElementById('sort-select').addEventListener('change', function() {
   let value = this.value;
@@ -139,6 +148,7 @@ function filterAudio(event) {
   });
 }
 
+
 // Function to fill input box with clicked item's text
 function fillInputBox(li) {
   const selectedValue = li.innerHTML;
@@ -172,24 +182,37 @@ inputBox.onkeyup = function() {
   }
 }
 
-// Search the Audio
-document.getElementById("search").addEventListener("click", () => {
-  let searchInput = document.getElementById("input-box").value.toLowerCase(); // Convert input to lowercase for case-insensitive search
-  let elements = document.querySelectorAll(".audio-name");
+// Submitting to add
+document.getElementById("add-form").addEventListener("submit", function(event) {
+  event.preventDefault(); // Prevent form submission from refreshing the page
 
-  elements.forEach((element) => {
-    let card = element.closest('.card'); 
-    if (element.textContent.toLowerCase().includes(searchInput)) { 
-      card.classList.remove("hide"); // Show the card
-    } else {
-      card.classList.add("hide"); // Hide the card
-    }
-  });
+  // Get values from form fields
+  var audioName = document.getElementById("audio-name").value;
+  var emoji = document.getElementById("emoji").value;
+  var category = document.getElementById("category").value;
+  var rating = document.getElementById("rating-cat").value;
+  var audioUrl = document.getElementById("audio-url").value;
 
-  // Clear input box after search
-  document.getElementById("input-box").value = "";
-  document.querySelector(".result-bx").innerHTML = "";
+  // Construct new audio object
+  var newAudio = {
+      audioName: audioName,
+      category: category,
+      rating: rating,
+      emoji: emoji,
+      audioToPlay: audioUrl
+  };
+
+  // Add new audio to the dataset
+  audios.data.push(newAudio);
+
+  // Close the pop-up
+  document.getElementById("pop-up").style.display = "none";
+
+  // Update UI to reflect the changes
+  createCards();
+  filterAudio({ target: { dataset: { value: "all" } } });
 });
+
 
 // Display the result
 function display(result) {
@@ -230,23 +253,10 @@ function updateLikedUI() {
     });
   }
 }
-function displayErrorMessage(message, duration) {
-  const errorHandler = document.getElementById("error-handler");
-  errorHandler.innerHTML = message;
-  errorHandler.classList.add("show");
-
-  // Remove errorHandler
-  setTimeout(() => {
-    errorHandler.innerHTML = "";
-    errorHandler.classList.remove("show");
-  }, duration);
-}
 // Function to display liked audios
 document.getElementById("like-btn").addEventListener("click", () => {
-  const errorHandler = document.getElementById("error-handler");
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => card.classList.add('hide')); // Hide all cards initially
-  errorHandler.innerHTML = "";
 
   // Check if likedAudios array is empty
   if (likedAudios.length === 0) {
@@ -320,40 +330,13 @@ window.onclick = function(event) {
     }
 }
 
-// Submitting to add
-document.getElementById("add-form").addEventListener("submit", function(event) {
-  event.preventDefault(); // Prevent form submission from refreshing the page
+// Initially display all audios
+window.onload = () => {
+  sortByRandom();
+  filterAudio({ target: { dataset: { value: "all" } } });
+  createCards(); // Create cards initially
+};
 
-  // Get values from form fields
-  var audioName = document.getElementById("audio-name").value;
-  var emoji = document.getElementById("emoji").value;
-  var category = document.getElementById("category").value;
-  var rating = document.getElementById("rating-cat").value;
-  var audioUrl = document.getElementById("audio-url").value;
-
-  // Construct new audio object
-  var newAudio = {
-      audioName: audioName,
-      category: category,
-      rating: rating,
-      emoji: emoji,
-      audioToPlay: audioUrl
-  };
-
-  // Add new audio to the dataset
-  audios.data.push(newAudio);
-
-  // Close the pop-up
-  document.getElementById("pop-up").style.display = "none";
-
-  // Update UI to reflect the changes
-  updateCards();
-  createCards();
-
-  // Check for errors
-  console.log(newAudio);
-  console.log(audios.data.length);
-});
 
 
 // Populate audio cards
