@@ -1,7 +1,6 @@
 import { audios } from "./dataset.js";
 
 // Error handler
-
 function displayErrorMessage(message) {
   alert(message);
 }
@@ -13,7 +12,7 @@ document.querySelectorAll(".btn-val").forEach(button => {
   });
 });
 
-// Sorting
+// Sorting Options
 document.getElementById('sort-select').addEventListener('change', function() {
   let value = this.value;
   if (value === 'name-random') {
@@ -116,6 +115,24 @@ function sortByNameDesc() {
   updateCards();
 }
 
+// Search button
+document.querySelector("#search").addEventListener("click", function() {
+  const searchValue = document.getElementById("input-box").value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    const audioName = card.querySelector(".audio-name").innerText.toLowerCase();
+    if (audioName.includes(searchValue)) {
+      card.classList.remove("hide");
+    } else {
+      card.classList.add("hide");
+    }
+  });
+    // Clear the input-box & result-bx
+    document.getElementById("input-box").value = "";
+    document.querySelector(".result-bx").innerHTML = "";
+});
+
 // Filter
 function filterAudio(event) {
   let value = event.target.dataset.value;
@@ -147,7 +164,6 @@ function filterAudio(event) {
     }
   });
 }
-
 
 // Function to fill input box with clicked item's text
 function fillInputBox(li) {
@@ -182,7 +198,7 @@ inputBox.onkeyup = function() {
   }
 }
 
-// Submitting to add
+// Submitting to add a card
 document.getElementById("add-form").addEventListener("submit", function(event) {
   event.preventDefault(); // Prevent form submission from refreshing the page
 
@@ -211,6 +227,7 @@ document.getElementById("add-form").addEventListener("submit", function(event) {
   // Update UI to reflect the changes
   createCards();
   filterAudio({ target: { dataset: { value: "all" } } });
+  alert("Your new audio has been added at the end of the list!");
 });
 
 
@@ -229,11 +246,6 @@ function display(result) {
       fillInputBox(this);
     });
   });
-
-  // Create and append the newly added card to the result box
-  const newlyAddedAudio = audios.data[audios.data.length - 1];
-  const newCard = `<li onclick="fillInputBox(this)">${newlyAddedAudio.audioName}</li>`;
-  resultbx.querySelector('ul').insertAdjacentHTML('beforeend', newCard);
 }
 
 // Array of liked
@@ -253,16 +265,17 @@ function updateLikedUI() {
     });
   }
 }
+
 // Function to display liked audios
 document.getElementById("like-btn").addEventListener("click", () => {
   const cards = document.querySelectorAll('.card');
-  cards.forEach(card => card.classList.add('hide')); // Hide all cards initially
 
   // Check if likedAudios array is empty
   if (likedAudios.length === 0) {
-    displayErrorMessage("There are no elements inside of your liked list!", 2000);
+    displayErrorMessage("There are no elements inside of your liked list!");
   }
   else {
+    cards.forEach(card => card.classList.add('hide')); // Hide all cards initially
     likedAudios.forEach(audio => {
       const index = audios.data.indexOf(audio);
       if (index !== -1) {
@@ -289,7 +302,7 @@ function toggleLike(index) {
 
   // Check if audio is already liked
   const isLiked = likedAudios.some(item => item === audio);
-  
+
   if (!isLiked) {
     // Add to liked audios
     likedAudios.push(audio);
@@ -336,8 +349,6 @@ window.onload = () => {
   filterAudio({ target: { dataset: { value: "all" } } });
   createCards(); // Create cards initially
 };
-
-
 
 // Populate audio cards
 function createCards() {
@@ -405,11 +416,14 @@ function createCards() {
     card.appendChild(container);
     audiosContainer.appendChild(card);
 
+    if (!availableKeywords.includes(audio.audioName)) {
+      availableKeywords.push(audio.audioName);
+    }
+
     // Event listener for like button
     likeBtn.addEventListener('click', () => toggleLike(i));
   }
 }
-
 
 // Initially display all audios
 window.onload = () => {

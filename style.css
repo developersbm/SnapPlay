@@ -31,6 +31,7 @@ nav {
 }
 
 /* Sorting Options */
+
 .sorting-options {
     display: flex;
     padding: 20px;
@@ -60,6 +61,7 @@ nav {
     padding: 1.3em;
     width: 100%;
 }
+
 /* Search */
 
 .search-container {
@@ -299,6 +301,7 @@ audio::-webkit-media-controls-panel {
     border: 1px solid grey;
     width: 50%;
     border-radius: 10px;
+    font-weight: 700;
 }
 
 
@@ -328,17 +331,18 @@ audio::-webkit-media-controls-panel {
 .pop-up-content button[type="submit"] {
     background-color: yellow;
     color: black;
-    padding: 8px 16px;
-    border: 1px solid black; /* Adding black border */
+    padding: 10px 20px;
+    border: 1px solid black;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 10px; /* Adjusting margin */
+    margin-top: 10px;
+    font-weight: 900;
+    font-size: 1em;
 }
 
 .pop-up-content button[type="submit"]:hover {
     background-color: yellow;
 }
-
 
 /* Responsive */
 
